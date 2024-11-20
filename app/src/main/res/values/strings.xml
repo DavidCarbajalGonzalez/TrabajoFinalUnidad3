@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">trabajofinalunidad3</string>
+    <string name="borrar">Borrar</string>
+    <string name="buscar">Buscar</string>
+    <string name="calendario_agr_cola">Calendario Agrícola</string>
+    <string name="oto_o_invierno">Otoño/Invierno</string>
+    <string name="oto_o_invierno1">otoño-invierno</string>
+    <string name="seleccionado">seleccionado</string>
+    <string name="perenne">Perenne</string>
+    <string name="perenne1">perenne</string>
+    <string name="seleccionado1">seleccionado</string>
+    <string name="primavera_verano">Primavera/Verano</string>
+    <string name="primavera_verano1">primavera-verano</string>
+    <string name="seleccionado2">seleccionado</string>
+</resources>
