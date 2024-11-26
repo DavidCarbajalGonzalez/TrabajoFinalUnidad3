@@ -1,15 +1,18 @@
 <resources>
-    <string name="app_name">trabajofinalunidad3</string>
-    <string name="borrar">Borrar</string>
-    <string name="buscar">Buscar</string>
+    <string name="app_name">Trabajo Final Unidad 3</string>
     <string name="calendario_agr_cola">Calendario Agrícola</string>
-    <string name="oto_o_invierno">Otoño/Invierno</string>
-    <string name="oto_o_invierno1">otoño-invierno</string>
-    <string name="seleccionado">seleccionado</string>
+    <string name="oto_o_invierno">Otoño-Invierno</string>
+    <string name="oto_o_invierno1">Otoño-Invierno</string>
+    <string name="seleccionado">Seleccionado</string>
+    <string name="primavera_verano">Primavera-Verano</string>
+    <string name="primavera_verano1">Primavera-Verano</string>
+    <string name="seleccionado2">Seleccionado</string>
     <string name="perenne">Perenne</string>
-    <string name="perenne1">perenne</string>
-    <string name="seleccionado1">seleccionado</string>
-    <string name="primavera_verano">Primavera/Verano</string>
-    <string name="primavera_verano1">primavera-verano</string>
-    <string name="seleccionado2">seleccionado</string>
+    <string name="perenne1">Perenne</string>
+    <string name="seleccionado1">Seleccionado</string>
+    <string name="buscar">Buscar</string>
+    <string name="borrar">Borrar</string>
+    <string name="product_image">Imagen del producto</string>
+    <string name="por_favor_selecciona_una_categor_a">Por favor, selecciona una categoría</string>
+    <string name="las_selecciones_han_sido_borradas">Las selecciones han sido borradas</string>
 </resources>

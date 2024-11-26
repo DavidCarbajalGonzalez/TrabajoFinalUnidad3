@@ -13,4 +13,7 @@
     <string name="primavera_verano">Primavera/Verán</string>
     <string name="primavera_verano1">primavera-verán</string>
     <string name="seleccionado2">seleccionado</string>
+    <string name="product_image">Imaxe do produto</string>
+    <string name="por_favor_selecciona_una_categor_a">Por favor, selecciona unha categoría</string>
+    <string name="las_selecciones_han_sido_borradas">As seleccións foron borradas</string>
 </resources>
