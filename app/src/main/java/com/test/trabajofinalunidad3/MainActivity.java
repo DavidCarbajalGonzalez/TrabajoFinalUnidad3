@@ -1,6 +1,7 @@
 package com.test.trabajofinalunidad3;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -16,6 +17,7 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
+    private String TAG = "MainActivity";
     private ToggleButton selectedToggleButton;
     private ImageView imageView;
     private ProductAdapter adapter;
@@ -26,42 +28,47 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Log.d(TAG, "Actividad principal iniciada.");
 
-        // Inicializar vistas
+        // Inicializar vistas y configurar funcionalidades
         setupUI();
-
-        // Configurar RecyclerView
         setupRecyclerView();
-
-        // Asociar ToggleButtons con datos e imágenes
         setupProductData();
-
-        // Configurar listeners
         setupListeners();
     }
 
-    // Configura las vistas principales y los botones de acción
+    // Inicializa las vistas principales y configura los botones de acción
     private void setupUI() {
         selectedToggleButton = null;
         imageView = findViewById(R.id.imageView);
 
-        findViewById(R.id.buttonBuscar).setOnClickListener(v -> showProducts());
-        findViewById(R.id.buttonBorrar).setOnClickListener(v -> clearSelections());
+        // Configurar acciones para los botones "Buscar" y "Borrar"
+        findViewById(R.id.buttonBuscar).setOnClickListener(v -> {
+            Log.d(TAG, "Botón 'Buscar' presionado."); // Log cuando se presiona "Buscar"
+            showProducts();
+        });
+
+        findViewById(R.id.buttonBorrar).setOnClickListener(v -> {
+            Log.d(TAG, "Botón 'Borrar' presionado."); // Log cuando se presiona "Borrar"
+            clearSelections();
+        });
     }
 
-    // Configura el RecyclerView para mostrar productos en una lista
+    // Configura el RecyclerView para mostrar la lista de productos
     private void setupRecyclerView() {
         RecyclerView recyclerViewProducts = findViewById(R.id.recyclerViewProducts);
         productList = new ArrayList<>();
         adapter = new ProductAdapter(productList);
         recyclerViewProducts.setLayoutManager(new LinearLayoutManager(this));
         recyclerViewProducts.setAdapter(adapter);
+        Log.d(TAG, "RecyclerView configurado correctamente.");
     }
 
-    //Asocia cada ToggleButton con su imagen correspondiente y lista de productos
+    // Asocia cada ToggleButton con una imagen y lista de productos
     private void setupProductData() {
         productDataMap = new HashMap<>();
 
+        // Categoría Otoño/Invierno
         productDataMap.put(findViewById(R.id.toggleButtonOtonoInvierno),
                 new ProductData(R.drawable.otonoinvierno, getProducts(
                         new Product("Calabaza", R.drawable.calabaza),
@@ -78,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
                         new Product("Limón", R.drawable.limones)
                 )));
 
+        // Categoría Primavera/Verano
         productDataMap.put(findViewById(R.id.toggleButtonPrimaveraVerano),
                 new ProductData(R.drawable.primaveraverano, getProducts(
                         new Product("Tomate", R.drawable.tomate),
@@ -87,9 +95,9 @@ public class MainActivity extends AppCompatActivity {
                         new Product("Sandia", R.drawable.sandia),
                         new Product("Lechuga", R.drawable.lechuga),
                         new Product("Zanahoria", R.drawable.zanahoria)
-
                 )));
 
+        // Categoría Perenne
         productDataMap.put(findViewById(R.id.toggleButtonPerenne),
                 new ProductData(R.drawable.perenne, getProducts(
                         new Product("Romero", R.drawable.romero),
@@ -102,21 +110,30 @@ public class MainActivity extends AppCompatActivity {
                         new Product("Mora", R.drawable.mora),
                         new Product("Menta", R.drawable.menta)
                 )));
+        Log.d(TAG, "Datos de productos configurados correctamente.");
     }
 
-    //  Configura los listeners para manejar la selección de ToggleButtons
+    // Configura los listeners para manejar las selecciones de los ToggleButtons
     private void setupListeners() {
         for (ToggleButton toggleButton : productDataMap.keySet()) {
-            toggleButton.setOnClickListener(v -> handleToggleSelection(toggleButton));
+            toggleButton.setOnClickListener(v -> {
+                Log.d(TAG, "ToggleButton presionado: " + toggleButton.getText()); // Log del botón seleccionado
+                handleToggleSelection(toggleButton);
+            });
         }
     }
 
+    // Maneja la selección de un ToggleButton
     private void handleToggleSelection(ToggleButton selectedButton) {
+        // Si ya hay un botón seleccionado, lo desmarca
         if (selectedToggleButton != null) {
             selectedToggleButton.setChecked(false);
         }
 
+        // Marca el nuevo botón seleccionado o desmarca si ya estaba seleccionado
         selectedToggleButton = selectedButton.isChecked() ? selectedButton : null;
+        Log.d(TAG, "Botón seleccionado: " +
+                (selectedToggleButton != null ? selectedToggleButton.getText() : "Ninguno"));
     }
 
     // Muestra los productos e imagen asociados al ToggleButton seleccionado
@@ -125,20 +142,24 @@ public class MainActivity extends AppCompatActivity {
         imageView.setImageResource(0);
 
         if (selectedToggleButton == null) {
+            // Muestra un mensaje si no hay ninguna categoría seleccionada
             Toast.makeText(this, R.string.por_favor_selecciona_una_categor_a, Toast.LENGTH_SHORT).show();
+            Log.d(TAG, "Ningún botón seleccionado para mostrar productos.");
             return;
         }
 
+        // Obtiene los datos asociados al ToggleButton seleccionado
         ProductData data = productDataMap.get(selectedToggleButton);
         if (data != null) {
             imageView.setImageResource(data.imageResId);
             productList.addAll(data.products);
+            Log.d(TAG, "Productos mostrados para categoría: " + selectedToggleButton.getText());
         }
 
-        adapter.notifyDataSetChanged();
+        adapter.notifyDataSetChanged(); // Notifica al adaptador sobre los cambios
     }
 
-    // Limpia las selecciones
+    // Limpia las selecciones y la lista de productos
     private void clearSelections() {
         if (selectedToggleButton != null) {
             selectedToggleButton.setChecked(false);
@@ -147,16 +168,18 @@ public class MainActivity extends AppCompatActivity {
 
         productList.clear();
         imageView.setImageResource(0);
-        adapter.notifyDataSetChanged();
+        adapter.notifyDataSetChanged(); // Notifica al adaptador sobre los cambios
 
+        Log.d(TAG, "Selecciones y productos limpiados.");
         Toast.makeText(this, R.string.las_selecciones_han_sido_borradas, Toast.LENGTH_SHORT).show();
     }
 
+    // Convierte un arreglo de productos en una lista
     private List<Product> getProducts(Product... products) {
         return List.of(products);
     }
 
-    // Clase interna para manejar los datos de productos
+    // Clase interna para manejar los datos asociados a un botón
     private static class ProductData {
         final int imageResId;
         final List<Product> products;
@@ -167,6 +190,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 }
+
+
 
 
 

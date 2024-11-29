@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+// Adaptador para el RecyclerView que muestra los productos
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
 
     private final List<Product> productList;
@@ -29,11 +30,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
-        // Obtiene el producto en la posición actual
-        Product product = productList.get(position);
-
-        // Establece los datos del producto en las vistas correspondientes
-        holder.bind(product);
+        // Obtiene el producto en la posición actual y lo enlaza al ViewHolder
+        holder.bind(productList.get(position));
     }
 
     @Override
@@ -42,7 +40,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         return productList.size();
     }
 
-    // Clase interna para el ViewHolder que mantiene referencias a las vistas del diseño del producto
+    // Clase interna que representa un ViewHolder para un producto
     public static class ProductViewHolder extends RecyclerView.ViewHolder {
         private final TextView productName;
         private final ImageView productImage;
@@ -62,6 +60,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         }
     }
 }
+
 
 
 

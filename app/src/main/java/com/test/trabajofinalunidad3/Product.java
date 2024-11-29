@@ -1,9 +1,9 @@
 package com.test.trabajofinalunidad3;
 
-// Atributos
+// Clase que representa un producto
 public class Product {
-    private String name;
-    private int imageResId;
+    private final String name;
+    private final int imageResId;
 
     // Constructor
     public Product(String name, int imageResId) {
@@ -20,3 +20,4 @@ public class Product {
         return imageResId;
     }
 }
+
