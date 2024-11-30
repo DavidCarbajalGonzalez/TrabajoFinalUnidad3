@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/md_theme_primaryFixed_mediumContrast"
+    android:background="@color/md_theme_primaryFixed"
     tools:context=".MainActivity">
 
     <TextView
@@ -26,9 +26,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:backgroundTint="@color/md_theme_primaryFixedDim"
+        android:backgroundTint="@color/md_theme_outline_highContrast"
         android:text="@string/oto_o_invierno"
-        android:textColor="@color/md_theme_primaryFixedDim_highContrast"
+        android:textColor="@color/md_theme_onTertiaryFixedVariant_highContrast"
         android:textOff="@string/oto_o_invierno1"
         android:textOn="@string/seleccionado"
         app:layout_constraintStart_toStartOf="parent"
@@ -40,9 +40,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:backgroundTint="@color/md_theme_primaryFixedDim"
+        android:backgroundTint="@color/md_theme_outline_highContrast"
         android:text="@string/primavera_verano"
-        android:textColor="@color/md_theme_primaryFixedDim_highContrast"
+        android:textColor="@color/md_theme_onTertiaryFixedVariant_highContrast"
         android:textOff="@string/primavera_verano1"
         android:textOn="@string/seleccionado2"
         app:layout_constraintStart_toStartOf="parent"
@@ -50,13 +50,13 @@
 
     <ToggleButton
         android:id="@+id/toggleButtonPerenne"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="92dp"
+        android:layout_height="47dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:backgroundTint="@color/md_theme_primaryFixedDim"
+        android:backgroundTint="@color/md_theme_outline_highContrast"
         android:text="@string/perenne"
-        android:textColor="@color/md_theme_primaryFixedDim_highContrast"
+        android:textColor="@color/md_theme_onTertiaryFixedVariant_highContrast"
         android:textOff="@string/perenne1"
         android:textOn="@string/seleccionado1"
         app:layout_constraintStart_toStartOf="parent"
@@ -70,6 +70,7 @@
         android:layout_marginTop="52dp"
         android:backgroundTint="@color/md_theme_onPrimaryFixedVariant"
         android:text="@string/buscar"
+        android:textColor="@color/md_theme_onTertiaryFixedVariant_highContrast"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toggleButtonPerenne" />
 
@@ -81,6 +82,7 @@
         android:layout_marginEnd="28dp"
         android:backgroundTint="@color/md_theme_onPrimaryFixedVariant"
         android:text="@string/borrar"
+        android:textColor="@color/md_theme_onTertiaryFixedVariant_highContrast"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
