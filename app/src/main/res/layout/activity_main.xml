@@ -51,7 +51,7 @@
     <ToggleButton
         android:id="@+id/toggleButtonPerenne"
         android:layout_width="92dp"
-        android:layout_height="47dp"
+        android:layout_height="48dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:backgroundTint="@color/md_theme_outline_highContrast"
