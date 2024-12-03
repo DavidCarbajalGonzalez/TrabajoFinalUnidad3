@@ -2,12 +2,14 @@ package com.test.trabajofinalunidad3;
 
 import android.os.Bundle;
 import android.widget.ImageView;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,20 +29,38 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Inicializar vistas
         setupUI();
 
-        // Configurar RecyclerView
         setupRecyclerView();
 
-        // Asociar ToggleButtons con datos e imágenes
         setupProductData();
 
-        // Configurar listeners
         setupListeners();
+        TabLayout tabLayout = findViewById(R.id.tabLayout);
+        tabLayout.addTab(tabLayout.newTab().setText("Principal"));
+        tabLayout.addTab(tabLayout.newTab().setText("Próximamente"));
+
+        // Configurar listener para las pestañas
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                if (tab.getPosition() == 1) { // Segunda pestaña
+                    Snackbar.make(findViewById(R.id.rootLayout), "Próximamente", Snackbar.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                // No se requiere acción
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+                // No se requiere acción
+            }
+        });
     }
 
-    // Configura las vistas principales y los botones de acción
     private void setupUI() {
         selectedToggleButton = null;
         imageView = findViewById(R.id.imageView);
@@ -49,7 +69,6 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.buttonBorrar).setOnClickListener(v -> clearSelections());
     }
 
-    // Configura el RecyclerView para mostrar productos en una lista
     private void setupRecyclerView() {
         RecyclerView recyclerViewProducts = findViewById(R.id.recyclerViewProducts);
         productList = new ArrayList<>();
@@ -58,7 +77,6 @@ public class MainActivity extends AppCompatActivity {
         recyclerViewProducts.setAdapter(adapter);
     }
 
-    //Asocia cada ToggleButton con su imagen correspondiente y lista de productos
     private void setupProductData() {
         productDataMap = new HashMap<>();
 
@@ -104,7 +122,6 @@ public class MainActivity extends AppCompatActivity {
                 )));
     }
 
-    //  Configura los listeners para manejar la selección de ToggleButtons
     private void setupListeners() {
         for (ToggleButton toggleButton : productDataMap.keySet()) {
             toggleButton.setOnClickListener(v -> handleToggleSelection(toggleButton));
@@ -119,13 +136,12 @@ public class MainActivity extends AppCompatActivity {
         selectedToggleButton = selectedButton.isChecked() ? selectedButton : null;
     }
 
-    // Muestra los productos e imagen asociados al ToggleButton seleccionado
     private void showProducts() {
         productList.clear();
         imageView.setImageResource(0);
 
         if (selectedToggleButton == null) {
-            Toast.makeText(this, R.string.por_favor_selecciona_una_categor_a, Toast.LENGTH_SHORT).show();
+            Snackbar.make(findViewById(R.id.rootLayout), R.string.por_favor_selecciona_una_categor_a, Snackbar.LENGTH_SHORT).show();
             return;
         }
 
@@ -138,7 +154,6 @@ public class MainActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
     }
 
-    // Limpia las selecciones
     private void clearSelections() {
         if (selectedToggleButton != null) {
             selectedToggleButton.setChecked(false);
@@ -149,14 +164,13 @@ public class MainActivity extends AppCompatActivity {
         imageView.setImageResource(0);
         adapter.notifyDataSetChanged();
 
-        Toast.makeText(this, R.string.las_selecciones_han_sido_borradas, Toast.LENGTH_SHORT).show();
+        Snackbar.make(findViewById(R.id.rootLayout), R.string.las_selecciones_han_sido_borradas, Snackbar.LENGTH_SHORT).show();
     }
 
     private List<Product> getProducts(Product... products) {
         return List.of(products);
     }
 
-    // Clase interna para manejar los datos de productos
     private static class ProductData {
         final int imageResId;
         final List<Product> products;
@@ -167,6 +181,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 }
+
+
 
 
 
