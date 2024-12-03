@@ -1,7 +1,16 @@
 package com.test.trabajofinalunidad3;
 
+import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
+import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private List<Product> productList;
     private Map<ToggleButton, ProductData> productDataMap;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
         setupProductData();
 
         setupListeners();
+
         TabLayout tabLayout = findViewById(R.id.tabLayout);
         tabLayout.addTab(tabLayout.newTab().setText("Principal"));
         tabLayout.addTab(tabLayout.newTab().setText("Próximamente"));
@@ -44,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                if (tab.getPosition() == 1) { // Segunda pestaña
+                if (tab.getPosition() == 1) {
                     Snackbar.make(findViewById(R.id.rootLayout), "Próximamente", Snackbar.LENGTH_SHORT).show();
                 }
             }
@@ -59,13 +70,50 @@ public class MainActivity extends AppCompatActivity {
                 // No se requiere acción
             }
         });
+
+        // Encuentra el TextView en el que se hará clic para mostrar el menú emergente
+        TextView textView = findViewById(R.id.textView);
+        textView.setOnClickListener(this::showPopUpMenu);
+    }
+
+    // Método para mostrar el menú emergente al pulsar el TextView
+    public void showPopUpMenu(View view) {
+        PopupMenu popupMenu = new PopupMenu(this, view);
+        MenuInflater menuInflater = popupMenu.getMenuInflater();
+        menuInflater.inflate(R.menu.context_menu, popupMenu.getMenu());
+
+        // Manejar la acción de los ítems del menú
+        popupMenu.setOnMenuItemClickListener(item -> {
+            TextView tv = (TextView) view;
+
+            // Cambiar el color según la opción seleccionada
+            if (item.getItemId() == R.id.amarillo) {
+                tv.setTextColor(Color.YELLOW);
+                Toast.makeText(this, "Color Amarillo seleccionado", Toast.LENGTH_SHORT).show();
+            } if (item.getItemId() == R.id.violeta) {
+                tv.setTextColor(Color.MAGENTA);
+                Toast.makeText(this, "Color Violeta seleccionado", Toast.LENGTH_SHORT).show();
+            }
+            else if(item.getItemId()== R.id.blanco){
+                tv.setTextColor(Color.WHITE);
+                Toast.makeText(this, "Color Blanco seleccionado", Toast.LENGTH_SHORT).show();
+            }
+
+            return true;
+        });
+
+        // Mostrar el menú emergente
+        popupMenu.show();
     }
 
     private void setupUI() {
         selectedToggleButton = null;
         imageView = findViewById(R.id.imageView);
 
-        findViewById(R.id.buttonBuscar).setOnClickListener(v -> showProducts());
+        findViewById(R.id.buttonBuscar).setOnClickListener(v -> {
+            showProducts();
+            showPopUpMenu(v);
+        });
         findViewById(R.id.buttonBorrar).setOnClickListener(v -> clearSelections());
     }
 
@@ -77,6 +125,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerViewProducts.setAdapter(adapter);
     }
 
+    @SuppressLint("FindViewByIdCast")
     private void setupProductData() {
         productDataMap = new HashMap<>();
 
@@ -140,6 +189,7 @@ public class MainActivity extends AppCompatActivity {
         productList.clear();
         imageView.setImageResource(0);
 
+
         if (selectedToggleButton == null) {
             Snackbar.make(findViewById(R.id.rootLayout), R.string.por_favor_selecciona_una_categor_a, Snackbar.LENGTH_SHORT).show();
             return;
@@ -154,6 +204,7 @@ public class MainActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private void clearSelections() {
         if (selectedToggleButton != null) {
             selectedToggleButton.setChecked(false);

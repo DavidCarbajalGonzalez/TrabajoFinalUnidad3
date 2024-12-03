@@ -15,4 +15,6 @@
     <string name="product_image">Imagen del producto</string>
     <string name="por_favor_selecciona_una_categor_a">Por favor, selecciona una categoría</string>
     <string name="las_selecciones_han_sido_borradas">Las selecciones han sido borradas</string>
+    <string name="opci_n_1">Opción 1</string>
+    <string name="opci_n_2">Opción 2</string>
 </resources>

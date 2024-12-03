@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/amarillo"
+        android:title="Cambiar boton amarillo" />
+    <item
+        android:id="@+id/violeta"
+        android:title="Cambiar boton violeta" />
+    <item
+        android:id="@+id/blanco"
+        android:title="Cambiar boton blanco"
+        />
+</menu>

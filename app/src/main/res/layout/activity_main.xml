@@ -64,16 +64,17 @@ android:textOn="@string/seleccionado1"
 app:layout_constraintStart_toStartOf="parent"
 app:layout_constraintTop_toBottomOf="@+id/toggleButtonPrimaveraVerano" />
 
-<Button
-android:id="@+id/buttonBuscar"
-android:layout_width="wrap_content"
-android:layout_height="wrap_content"
-android:layout_marginStart="48dp"
-android:layout_marginTop="52dp"
-android:backgroundTint="@color/md_theme_onPrimaryFixedVariant"
-android:text="@string/buscar"
-app:layout_constraintStart_toStartOf="parent"
-app:layout_constraintTop_toBottomOf="@+id/toggleButtonPerenne" />
+    <Button
+        android:id="@+id/buttonBuscar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="52dp"
+        android:backgroundTint="@color/md_theme_onPrimaryFixedVariant"
+        android:text="@string/buscar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toggleButtonPerenne"
+        tools:ignore="DuplicateSpeakableTextCheck" />
 
 <Button
 android:id="@+id/buttonBorrar"
@@ -91,6 +92,7 @@ app:layout_constraintTop_toBottomOf="@+id/imageView" />
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/buscar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -112,8 +114,8 @@ tools:srcCompat="@tools:sample/avatars" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewProducts"
-        android:layout_width="409dp"
-        android:layout_height="348dp"
+        android:layout_width="410dp"
+        android:layout_height="356dp"
         android:background="@color/md_theme_primaryFixed"
         android:clipToPadding="false"
         android:padding="16dp"
@@ -122,7 +124,8 @@ tools:srcCompat="@tools:sample/avatars" />
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonBuscar" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonBuscar"
+        app:layout_constraintVertical_bias="1.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
