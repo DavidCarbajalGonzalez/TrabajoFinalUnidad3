@@ -3,9 +3,7 @@ package com.test.trabajofinalunidad3;
 import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.view.ContextMenu;
 import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
@@ -118,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setupRecyclerView() {
-        RecyclerView recyclerViewProducts = findViewById(R.id.recyclerViewProducts);
+        RecyclerView recyclerViewProducts = findViewById(R.id.recyclerViewFragment);
         productList = new ArrayList<>();
         adapter = new ProductAdapter(productList);
         recyclerViewProducts.setLayoutManager(new LinearLayoutManager(this));
@@ -186,10 +184,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showProducts() {
-        productList.clear();
-        imageView.setImageResource(0);
-
-
         if (selectedToggleButton == null) {
             Snackbar.make(findViewById(R.id.rootLayout), R.string.por_favor_selecciona_una_categor_a, Snackbar.LENGTH_SHORT).show();
             return;
@@ -198,11 +192,15 @@ public class MainActivity extends AppCompatActivity {
         ProductData data = productDataMap.get(selectedToggleButton);
         if (data != null) {
             imageView.setImageResource(data.imageResId);
-            productList.addAll(data.products);
-        }
 
-        adapter.notifyDataSetChanged();
+            // Carga el fragmento con la lista de productos
+            ProductListFragment fragment = ProductListFragment.newInstance(new ArrayList<>(data.products));
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragmentContainer, fragment)
+                    .commit();
+        }
     }
+
 
     @SuppressLint("NotifyDataSetChanged")
     private void clearSelections() {
