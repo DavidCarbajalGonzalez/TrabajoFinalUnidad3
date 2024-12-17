@@ -31,25 +31,20 @@ public class MainActivity extends AppCompatActivity {
     private List<Product> productList;
     private Map<ToggleButton, ProductData> productDataMap;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         setupUI();
-
         setupRecyclerView();
-
         setupProductData();
-
         setupListeners();
 
         TabLayout tabLayout = findViewById(R.id.tabLayout);
         tabLayout.addTab(tabLayout.newTab().setText("Principal"));
         tabLayout.addTab(tabLayout.newTab().setText("Próximamente"));
 
-        // Configurar listener para las pestañas
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -59,40 +54,31 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-                // No se requiere acción
-            }
+            public void onTabUnselected(TabLayout.Tab tab) {}
 
             @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-                // No se requiere acción
-            }
+            public void onTabReselected(TabLayout.Tab tab) {}
         });
 
-        // Encuentra el TextView en el que se hará clic para mostrar el menú emergente
         TextView textView = findViewById(R.id.textView);
         textView.setOnClickListener(this::showPopUpMenu);
     }
 
-    // Método para mostrar el menú emergente al pulsar el TextView
     public void showPopUpMenu(View view) {
         PopupMenu popupMenu = new PopupMenu(this, view);
         MenuInflater menuInflater = popupMenu.getMenuInflater();
         menuInflater.inflate(R.menu.context_menu, popupMenu.getMenu());
 
-        // Manejar la acción de los ítems del menú
         popupMenu.setOnMenuItemClickListener(item -> {
             TextView tv = (TextView) view;
 
-            // Cambiar el color según la opción seleccionada
             if (item.getItemId() == R.id.amarillo) {
                 tv.setTextColor(Color.YELLOW);
                 Toast.makeText(this, "Color Amarillo seleccionado", Toast.LENGTH_SHORT).show();
-            } if (item.getItemId() == R.id.violeta) {
+            } else if (item.getItemId() == R.id.violeta) {
                 tv.setTextColor(Color.MAGENTA);
                 Toast.makeText(this, "Color Violeta seleccionado", Toast.LENGTH_SHORT).show();
-            }
-            else if(item.getItemId()== R.id.blanco){
+            } else if (item.getItemId() == R.id.blanco) {
                 tv.setTextColor(Color.WHITE);
                 Toast.makeText(this, "Color Blanco seleccionado", Toast.LENGTH_SHORT).show();
             }
@@ -100,7 +86,6 @@ public class MainActivity extends AppCompatActivity {
             return true;
         });
 
-        // Mostrar el menú emergente
         popupMenu.show();
     }
 
@@ -141,6 +126,7 @@ public class MainActivity extends AppCompatActivity {
                         new Product("Kiwi", R.drawable.kiwi),
                         new Product("Naranja", R.drawable.naranjas),
                         new Product("Limón", R.drawable.limones)
+
                 )));
 
         productDataMap.put(findViewById(R.id.toggleButtonPrimaveraVerano),
@@ -166,6 +152,7 @@ public class MainActivity extends AppCompatActivity {
                         new Product("Pera", R.drawable.pera),
                         new Product("Mora", R.drawable.mora),
                         new Product("Menta", R.drawable.menta)
+
                 )));
     }
 
@@ -179,7 +166,6 @@ public class MainActivity extends AppCompatActivity {
         if (selectedToggleButton != null) {
             selectedToggleButton.setChecked(false);
         }
-
         selectedToggleButton = selectedButton.isChecked() ? selectedButton : null;
     }
 
@@ -193,14 +179,12 @@ public class MainActivity extends AppCompatActivity {
         if (data != null) {
             imageView.setImageResource(data.imageResId);
 
-            // Carga el fragmento con la lista de productos
             ProductListFragment fragment = ProductListFragment.newInstance(new ArrayList<>(data.products));
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragmentContainer, fragment)
                     .commit();
         }
     }
-
 
     @SuppressLint("NotifyDataSetChanged")
     private void clearSelections() {
@@ -230,6 +214,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 }
+
 
 
 
