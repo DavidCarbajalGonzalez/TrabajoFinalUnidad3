@@ -30,15 +30,43 @@ public class MainActivity extends AppCompatActivity {
         // Inicializar vistas
         setupUI();
 
-        // Configurar RecyclerView
-        setupRecyclerView();
-
         // Asociar ToggleButtons con datos e imágenes
         setupProductData();
 
         // Configurar listeners
         setupListeners();
+
+        // Inicializar el fragmento con una lista vacía
+        loadProductListFragment(new ArrayList<>());
     }
+
+    private void loadProductListFragment(List<Product> products) {
+        ProductListFragment fragment = ProductListFragment.newInstance(products);
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragmentContainer, fragment)
+                .commit();
+    }
+
+    private void showProducts() {
+        imageView.setImageResource(0);
+
+        if (selectedToggleButton == null) {
+            Toast.makeText(this, R.string.por_favor_selecciona_una_categor_a, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        ProductData data = productDataMap.get(selectedToggleButton);
+        if (data != null) {
+            imageView.setImageResource(data.imageResId);
+
+            ProductListFragment fragment = (ProductListFragment) getSupportFragmentManager()
+                    .findFragmentById(R.id.fragmentContainer);
+            if (fragment != null) {
+                fragment.updateProductList(data.products);
+            }
+        }
+    }
+
 
     // Configura las vistas principales y los botones de acción
     private void setupUI() {
@@ -117,25 +145,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         selectedToggleButton = selectedButton.isChecked() ? selectedButton : null;
-    }
-
-    // Muestra los productos e imagen asociados al ToggleButton seleccionado
-    private void showProducts() {
-        productList.clear();
-        imageView.setImageResource(0);
-
-        if (selectedToggleButton == null) {
-            Toast.makeText(this, R.string.por_favor_selecciona_una_categor_a, Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        ProductData data = productDataMap.get(selectedToggleButton);
-        if (data != null) {
-            imageView.setImageResource(data.imageResId);
-            productList.addAll(data.products);
-        }
-
-        adapter.notifyDataSetChanged();
     }
 
     // Limpia las selecciones
